@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RESULTS</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div id="results-wrapper">
+        <div>
+            <p class="results-title">RESULTS</p>
+            <p id="results-phrase">You did not have anything particular in common.</p>
+            <p class="results-score"><span>3</span> / <span>10</span></p>
+            <p class="results-subtitle">of the anime you had similar ratings.</p>
+            <a href="/">RESTART</a>
+        </div>
+    </div>
+    <script>
+        phrases = {
+            'good': [
+                "You had indeed a lot in common. Go watch some of the 34th rule together.",
+                "Congrats! You and this GUY watch and like the same things. Nerd.",
+                "weeb.",
+                "Cumming to get you together strong apes.",
+                "yes."
+            ],
+            'bad': [
+                "Dogshit taste that guy had am I right.",
+                "Dudu trash taste.",
+                "whomegalul",
+                "Who even likes those shows?",
+                "YOU LIKE THAT TRASH? GET OUT OF HERE!",
+                "cum."
+            ]
+        }
+
+        resultData = JSON.parse(localStorage.getItem('data'));
+        
+        collectiveCount = 0;
+        for (const [key, value] of Object.entries(resultData)) {
+            result = value;
+            
+            clientScore = parseInt(result['client']);
+            userScore = parseInt(result['user']);
+
+            if (Math.abs(clientScore - userScore) <= 2)
+            {
+                collectiveCount += 1;
+            }
+        }
+        
+        results = document.getElementById('results-wrapper');
+
+        spans = results.getElementsByTagName('span');
+
+        phraseElement = document.getElementById('results-phrase');
+        
+        if (collectiveCount >= 6)
+            phraseElement.textContent = phrases['good'][Math.floor(Math.random() * phrases['good'].length)];
+        else
+            phraseElement.textContent = phrases['bad'][Math.floor(Math.random() * phrases['bad'].length)];
+
+        for (let i = 0; i < spans.length; i++)
+        {
+            if (collectiveCount >= 6)
+            {
+                spans[i].style.color = 'rgb(131, 241, 140)';
+            }
+            else
+            {
+                spans[i].style.color = 'rgb(241, 131, 131)';
+
+                bad = phrases['bad'];
+                r = bad[Math.floor(Math.random() * bad.length)];
+
+                phrase = bad[r];
+            }
+        }
+        spans[0].textContent = collectiveCount;
+    </script>
+</body>
+</html>

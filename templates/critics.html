@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANIME</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div id="container">
+        <div id="client-wrapper">
+            <p class="title">Rate this Anime</p>
+            <p class="name">{{ anime['name'] }}</p>
+            <div class="score-container">
+                <span class="next-btn" onclick="nextNum()"></span>
+                <span class="prev-btn" onclick="prevNum()"></span>
+                <div id="box"></div>
+            </div>
+            <script>
+                var numbers = document.getElementById('box');
+        
+                for (i = 1; i <= 10; i++)
+                {
+                    var span = document.createElement('span');
+                    span.textContent = i;
+                    numbers.append(span);
+                }
+        
+                var num = numbers.getElementsByTagName('span');
+                var index = 0;
+        
+                function nextNum()
+                {
+                    num[index].style.display = 'none';
+                    index = (index + 1) % num.length;
+                    num[index].style.display = 'initial';
+                }
+                function prevNum()
+                {
+                    num[index].style.display = 'none';
+                    index = (index - 1 + num.length) % num.length;
+                    num[index].style.display = 'initial';
+                }
+            </script>
+            <button type="submit" class="rate" onclick="rate()">RATE</button>
+        </div>
+        <div id="user-wrapper">
+            <p class="title" id="user-title"></p>
+            <p class="name">{{ anime['name'] }}</p>
+            <p class="score">{{ anime['score'] }}</p>
+            <p id="valid-title" class="title">Is it valid?</p>
+            <button onclick="validate(true)" id="valid" type="submit">VALID</button>
+            <button onclick="validate(false)" id="invalid" type="submit">INVALID</button>
+        </div>
+    </div>
+    <script>
+        document.getElementById('user-title').textContent = localStorage.getItem('user') + ' rated';
+    </script>
+    <script>
+        clientWrapper = document.getElementById('client-wrapper');
+        userWrapper = document.getElementById('user-wrapper');
+
+        function rate()
+        {
+            clientWrapper.style.display = 'none';
+            userWrapper.style.display = 'block';
+
+            document.getElementById('trailer').remove();
+
+            container = document.getElementById('container');
+            container.style.background = 'linear-gradient(rgba(0,0,0,.75), rgba(0,0,0,.75)), url("{{ wallpaper }}")';
+        }
+    </script>
+    <script>
+        function validate(valid)
+        {
+            localStorage.setItem('count', (parseInt(localStorage.getItem('count')) + 1));
+
+            let data = JSON.parse(localStorage.getItem('data'));
+
+            _userScore = '';
+            _spans = document.getElementById('box').getElementsByTagName('span');
+            for (let i = 0; i < _spans.length; i++)
+            {
+                if (_spans[i].style.display == 'initial')
+                {
+                    _userScore = _spans[i].textContent;
+
+                    break;
+                }
+            }
+
+            data['{{ anime['name'] }}'] = {
+                'client': '{{ anime['score'] }}',
+                'user': _userScore
+            }
+
+            localStorage.setItem('data', JSON.stringify(data));
+            
+            if (parseInt(localStorage.getItem('count')) >= 10)
+            {
+                window.location.href = "/results/";
+                
+                return;
+            }
+
+            window.location.reload();
+        }
+    </script>
+    <script>
+        iframe = document.createElement('iframe');
+        iframe.setAttribute('frameborder', '0');
+        iframe.setAttribute('src', '{{ video }}');
+        iframe.setAttribute('id', 'trailer');
+        iframe.style.zIndex = '-1';
+        $('body').append(iframe);
+    </script>
+</body>
+</html>

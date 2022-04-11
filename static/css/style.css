@@ -1,0 +1,309 @@
+body {
+    background-color: #000;
+    font-family: rooney-sans, sans-serif;
+}
+
+body, body * {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    box-sizing: border-box;
+}
+
+
+#container {
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(rgba(0,0,0,.75), rgba(0,0,0,.75));
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    background-size: cover !important;
+}
+
+#client-wrapper, #user-wrapper {
+    width: 50%;
+    height: 50vh;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+#user-wrapper {
+    display: none;
+}
+
+iframe {
+    position: absolute;
+    pointer-events: none;
+    width: 100%;
+    height: 100vh;
+}
+
+.title {
+    font-weight: 700;
+    font-size: 1vw;
+    color: #fff;
+}
+.name {
+    color: #fff;
+    font-style: italic;
+    font-size: 1vw;
+    margin-top: 2%;
+    letter-spacing: 4px;
+    text-decoration: underline;
+    text-underline-offset: 10px;
+}
+.score {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: center;
+    color: #fff989;
+    font-size: 8vw;
+    font-weight: 700;
+}
+#valid-title {
+    position: absolute;
+    top: auto;
+    bottom: 30%;
+}
+.rate {
+    position: absolute;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    top: auto;
+    bottom: 8%;
+    width: 20%;
+    height: 10%;
+    background-color: transparent;
+    outline: none;
+    border: 2px solid rgba(255, 255, 255, .4);
+    border-radius: 20px;
+    color: #fff;
+    transition: .25s;
+    font-weight: 700;
+}
+.rate:hover {
+    background-color: #fff;
+    color: #222;
+    cursor: pointer;
+}
+#user-wrapper button {
+    position: absolute;
+    top: auto;
+    bottom: 10%;
+    width: 8vw;
+    height: 3vw;
+    border: 2px solid;
+    background-color: transparent;
+    border-radius: 10px;
+    font-size: .75vw;
+    font-weight: 700;
+    margin: 10px;
+    cursor: pointer;
+    transition: .25s;
+}
+#user-wrapper #valid {
+    left: auto;
+    right: 50%;
+    border-color: rgb(131, 241, 140);
+    color: rgb(131, 241, 140);
+}
+#user-wrapper #invalid {
+    right: auto;
+    left: 50%;
+    border-color: rgb(241, 131, 131);
+    color: rgb(241, 131, 131);
+}
+#user-wrapper #valid:hover {
+    background-color: rgb(131, 241, 140);
+    color: #222;
+}
+#user-wrapper #invalid:hover {
+    background-color: rgb(241, 131, 131);
+    color: #222;
+}
+
+
+.score-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 15vw;
+    height: 10vw;
+    border-radius: 40px;
+    border: 2px solid rgba(255, 255, 255, .2);
+    transform: .5s;
+}
+.score-container:hover {
+    width: 20vw;
+}
+.score-container .next-btn, .score-container .prev-btn {
+    position: absolute;
+    top: 50%;
+    display: block;
+    width: 2vw;
+    height: 2vw;
+    border-top: 2px solid #fff;
+    border-left: 2px solid #fff;
+    z-index: 1;
+    cursor: pointer;
+    opacity: 0;
+    transition: .5s;
+}
+.score-container .next-btn {
+    right: 15%;
+    left: auto;
+    transform: translateY(-50%) rotate(135deg);
+}
+.score-container:hover .next-btn {
+    right: 10%;
+    left: auto;
+    opacity: 1;
+}
+.score-container .prev-btn {
+    left: 15%;
+    right: auto;
+    transform: translateY(-50%) rotate(315deg);
+}
+.score-container:hover .prev-btn {
+    left: 10%;
+    right: auto;
+    opacity: 1;
+}
+.score-container #box span {
+    position: absolute;
+    display: none;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    line-height: 9.2vw;
+    color: #fff989;
+    font-size: 8vw;
+    font-weight: 700;
+    user-select: none;
+}
+.score-container #box span:nth-child(1) {
+    display: initial;
+}
+
+
+#user-input {
+    width: 100%;
+    height: 100vh;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    background-size: cover !important;
+}
+#user-input > form {
+    position: absolute;
+    top: 50%;
+    bottom: auto;
+    transform: translateY(-50%);
+    width: 50%;
+    margin: auto;
+    text-align: center;
+}
+#user-input > form * {
+    margin: 50px;
+}
+#user-input p {
+    color: #fff;
+    font-weight: 700;
+    font-size: 2rem;
+}
+#user-input input {
+    color: #fff;
+    width: 100%;
+    font-size: 2rem;
+    background: none;
+    outline: none;
+    border: none;
+    border-bottom: 3px solid #fff;
+    transition: .1s ease-in-out;
+}
+#user-input input:focus {
+    border-bottom: 6px solid rgb(131, 241, 140);
+}
+#user-input button {
+    width: 10vw;
+    height: 3vw;
+    font-size: 1rem;
+    background: none;
+    outline: none;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: .25s;
+}
+#user-input button:hover {
+    background: #fff;
+    color: #222;
+}
+
+
+#results-wrapper {
+    background-color: #111;
+    width: 100%;
+    height: 100vh;
+    color: #fff;
+}
+#results-wrapper > div {
+    text-align: center;
+    width: 50%;
+    height: 40vh;
+    flex-direction: column;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.results-title {
+    font-weight: 700;
+    font-size: 2rem;
+}
+#results-phrase {
+    font-style: italic;
+}
+.results-score {
+    font-weight: 700;
+    font-size: 6rem;
+    letter-spacing: 5px;
+}
+.results-subtitle {
+    letter-spacing: 2px;
+    font-size: .75rem;
+}
+
+#results-wrapper a {
+    display: block;
+    padding: 1vw 2vw;
+    margin-top: 40px;
+    font-size: 1rem;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: .25s;
+    text-decoration: none;
+    text-align: center;
+}
+#results-wrapper a:hover {
+    background: #fff;
+    color: #222;
+}

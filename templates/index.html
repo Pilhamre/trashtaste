@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANIME</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div id="user-input" style="background: linear-gradient(rgba(0,0,0,.95), rgba(0,0,0,.95)), url('{{ wallpaper }}');">
+        <form id="username-form" action="/critics/?" method="post">
+            <p>Whom shall you criticize?</p>
+            <input id="username" name="user" type="text" placeholder="name..." required>
+            <button onclick="setUser()" type="submit">Criticize</button>
+        </form>
+    </div>
+    <script>
+        function uuidv4() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+
+        uuid = uuidv4();
+
+        document.getElementById('username-form').action = '/critics/?client_id=' + uuid;
+
+        localStorage.setItem('count', '0');
+        localStorage.setItem('data', JSON.stringify({}));
+        
+        function setUser()
+        {
+            localStorage.setItem('user', document.getElementById('username').value);
+        }
+    </script>
+</body>
+</html>
